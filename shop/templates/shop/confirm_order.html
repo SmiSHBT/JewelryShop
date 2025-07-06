@@ -1,0 +1,129 @@
+{% extends 'shop/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<style>
+.confirm-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .confirm-container {
+  background-color: #f9f9f9;
+  color: #000000;
+}
+
+body.dark-theme .confirm-container {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+}
+
+body.light-theme input[type="text"] {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ccc;
+}
+
+body.dark-theme input[type="text"] {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submitbtn:hover {
+  background-color: #218838;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .popup-content {
+  background-color: #f9f9f9;
+  color: #000000;
+}
+
+body.dark-theme .popup-content {
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+}
+
+.popup-content h2 {
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+.popup-content .checkmark {
+  font-size: 48px;
+  color: #28a745;
+  margin-bottom: 40px;
+}
+</style>
+
+<div class="confirm-container">
+  <h2>{% trans "Подтверждение заказа" %}</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <label>{% trans "Введите код, отправленный на вашу почту:" %}</label>
+    <input type="text" name="code" required>
+    <button class="submitbtn">{% trans "Подтвердить" %}</button>
+  </form>
+</div>
+
+{% if success %}
+<div class="popup" id="successPopup" style="display: flex;">
+  <div class="popup-content">
+    <div class="checkmark">✅</div>
+    <h2>{% trans "Спасибо за заказ!" %}</h2>
+    <p>{% trans "Ожидайте отправку. Мы уже собираем вашу посылку." %}</p>
+    <br>
+    <a href="{% url 'home' %}">
+      <button>{% trans "На главную" %}</button>
+    </a>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'shop/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% trans "Мои заказы" %}</h2>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="card mb-4 order-card" >
+                <div class="card-header">
+                    <strong>{% trans "Заказ №" %}{{ order.id }}</strong>
+                    <span class="float-end">{{ order.created_at|date:"d.m.Y H:i" }}</span>
+                </div>
+                <div class="card-body">
+                    <p><strong>{% trans "Статус:" %}</strong>
+                        {% if order.status == 'pending' %}
+                        🕒 {% trans "Ожидает потверждения" %}
+                    {% elif order.status == 'processing' %}
+                        🧰 {% trans "Собирается" %}
+                    {% elif order.status == 'shipped' %}
+                        🚚 {% trans "В пути" %}
+                    {% elif order.status == 'delivered' %}
+                        ✅ {% trans "Доставлен" %}
+                    {% endif %}
+                    </p>
+
+                    <p><strong>{% trans "Адрес доставки:" %}</strong> {{ order.address }}</p>
+                    <p><strong>{% trans "Оплата:" %}</strong> {{ order.get_payment_method_display }}</p>
+
+                    <ul>
+                        {% for item in order.items.all %}
+                            <li style="display: flex;">{{ item.product.name }} — {{ item.quantity }} {% trans "шт." %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>{% trans "Вы пока не сделали ни одного заказа." %}</p>
+    {% endif %}
+</div>
+{% endblock %}

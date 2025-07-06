@@ -1,0 +1,197 @@
+{% extends 'shop/base.html' %}
+{% load i18n %}
+
+{% block title %}{{ product.name }} | Магазин{% endblock %}
+
+{% block content %}
+<style>
+    .btn-outline-primary {
+        color: #0d6efd;
+        border-color: #0d6efd;
+        background-color: rgba(13,110,253,0.05);
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .review-item {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.light-theme .review-item {
+        background-color: #f8f9fa;
+        color: #000000;
+        border-color: #ccc;
+    }
+
+    body.dark-theme .review-item {
+        background-color: #2c2c2c;
+        color: #ffffff;
+        border-color: #444;
+    }
+
+    body.dark-theme .text-muted {
+        color: #bbb !important;
+    }
+
+    body.dark-theme .form-control {
+        background-color: #1e1e1e;
+        color: white;
+        border-color: #444;
+    }
+
+    body.light-theme .form-control {
+        background-color: white;
+        color: black;
+        border-color: #ccc;
+    }
+
+    body.dark-theme .form-control::placeholder {
+        color: #888;
+    }
+
+    body.dark-theme input[type="submit"],
+    body.dark-theme .btn {
+        border-color: #555;
+    }
+
+    body.dark-theme .btn-outline-secondary {
+        color: #ccc;
+        border-color: #555;
+    }
+
+    body.dark-theme .btn-outline-secondary:hover {
+        background-color: #555;
+        color: white;
+    }
+
+    /* Стили стрелок переключения отзывов */
+    .review-nav-buttons button {
+        padding: 6px 12px;
+        font-size: 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border: 1px solid;
+    }
+
+    body.light-theme .review-nav-buttons button {
+        background-color: #f1f1f1;
+        color: #000;
+        border-color: #ccc;
+    }
+
+    body.dark-theme .review-nav-buttons button {
+        background-color: #2a2a2a;
+        color: #fff;
+        border-color: #555;
+    }
+
+    .review-nav-buttons button:hover {
+        opacity: 0.8;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="mb-3">{{ product.name }}</h2>
+            <p><strong>{% trans "Цена" %}:</strong> {{ product.price }} UZS</p>
+
+            <form method="post" action="{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success mb-2">{% trans "Добавить в корзину" %}</button>
+            </form>
+
+            {% if is_favorite %}
+                <form method="post" action="{% url 'remove_from_favorites' product.id %}">{% csrf_token %}
+                    <button type="submit" class="btn btn-danger">{% trans "Убрать из избранного" %}</button>
+                </form>
+            {% else %}
+                <form method="post" action="{% url 'add_to_favorites' product.id %}">{% csrf_token %}
+                    <button type="submit" class="btn btn-primary">{% trans "Добавить в избранное" %}</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4 class="mb-3">{% trans "Отзывы о товаре" %}</h4>
+
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="border rounded p-3 mb-3 review-item" style = " {% if forloop.first %} display: block; {% else %}display: none;{% endif %}" >
+                        <strong>{{ review.user.username }}</strong> —
+                        <span class="text-warning">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
+                            {% endfor %}
+                        </span>
+                        <p class="mb-0">{{ review.text }}</p>
+                        <small class="text-muted">{{ review.created_at|date:"d.m.Y H:i" }}</small>
+                    </div>
+                {% endfor %}
+
+                <div class="d-flex align-items-center gap-3 review-nav-buttons mt-2">
+                    <button type="button" onclick="prevReview()">←</button>
+                    <span id="review-counter">1 из {{ reviews|length }}</span>
+                    <button type="button" onclick="nextReview()">→</button>
+                </div>
+            {% else %}
+                <p class="text-muted">{% trans "Пока нет отзывов." %}</p>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            <h5>{% trans "Оставить отзыв" %}</h5>
+            {% if user.is_authenticated %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">{% trans "Отправить" %}</button>
+                </form>
+            {% else %}
+                <p><a href="{% url 'login' %}">{% trans "Войдите" %}</a>, чтобы оставить отзыв.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const reviews = document.querySelectorAll('.review-item');
+        const counter = document.getElementById('review-counter');
+        let current = 0;
+
+        function showReview(index) {
+            reviews.forEach((item, i) => {
+                item.style.display = i === index ? 'block' : 'none';
+            });
+            if (counter) {
+                counter.textContent = `${index + 1} из ${reviews.length}`;
+            }
+        }
+
+        window.nextReview = function () {
+            current = (current + 1) % reviews.length;
+            showReview(current);
+        }
+
+        window.prevReview = function () {
+            current = (current - 1 + reviews.length) % reviews.length;
+            showReview(current);
+        }
+
+        showReview(current);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'shop/base.html' %}
+{% load i18n %}
+{% block content %}
+<style>
+    .checkout-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 30px;
+        border-radius: 10px;
+    }
+    
+    /* Заголовок */
+    .checkout-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 28px;
+    }
+    
+    /* Метки */
+    .checkout-form label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+    
+    /* Поля формы */
+    .checkout-form input,
+    .checkout-form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+    
+    /* Кнопка */
+    .checkout-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #28a745;
+        border: none;
+        color: white;
+        font-size: 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .checkout-form button:hover {
+        background-color: #218838;
+    }
+    
+    /* Светлая тема */
+    body.light-theme .checkout-card {
+        background-color: #ffffff;
+        color: #000000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Тёмная тема */
+    body.dark-theme .checkout-card {
+        background-color: #151515 !important; /* Более тёмный цвет */
+        color: #ffffff;
+        box-shadow: none !important; /* Убираем свечение */
+        border: 1px solid #333;
+    }
+    
+    /* Поля в тёмной теме */
+    body.dark-theme .checkout-card input,
+    body.dark-theme .checkout-card select {
+        background-color: #1f1f1f !important;
+        color: #fff !important;
+        border: 1px solid #444;
+    }
+    
+    /* Placeholder */
+    body.dark-theme .checkout-card input::placeholder,
+    body.dark-theme .checkout-card select::placeholder {
+        color: #aaa;
+    }
+    
+    /* Заголовки и метки */
+    body.dark-theme .checkout-card h2,
+    body.dark-theme .checkout-card label {
+        color: #ffffff;
+    }
+      /* Checkout Card Light Theme */
+  body.light-theme .checkout-card {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #ddd !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Checkout Card Dark Theme */
+  body.dark-theme .checkout-card {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+    border: 1px solid #333 !important;
+    box-shadow: none !important;
+  }
+
+  body.dark-theme .checkout-card input,
+  body.dark-theme .checkout-card select {
+    background-color: #1e1e1e !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+  }
+
+  body.dark-theme .checkout-card input::placeholder,
+  body.dark-theme .checkout-card select::placeholder {
+    color: #aaa !important;
+  }
+</style>
+<div class="checkout-container checkout-card">
+    <h2>{% trans "Оформление заказа" %}</h2>
+
+    <form method="post" class="checkout-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% trans "Подтвердить заказ" %}</button>
+    </form>
+</div>
+{% endblock %}

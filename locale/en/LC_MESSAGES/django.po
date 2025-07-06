@@ -1,0 +1,296 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: JewelryShop 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-19 14:09+0300\n"
+"PO-Revision-Date: 2025-06-19 19:30+0300\n"
+"Last-Translator: Your Name <you@example.com>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: settings.py
+msgid "Русский"
+msgstr "Russian"
+
+msgid "English"
+msgstr "English"
+
+#: templates
+msgid "Вход в аккаунт"
+msgstr "Login to your account"
+
+msgid "Имя пользователя"
+msgstr "Username"
+
+msgid "Пароль"
+msgstr "Password"
+
+msgid "Войти"
+msgstr "Login"
+
+msgid "Нет аккаунта?"
+msgstr "Don't have an account?"
+
+msgid "Зарегистрируйтесь"
+msgstr "Register"
+
+msgid "Корзина"
+msgstr "Cart"
+
+msgid "Удалить"
+msgstr "Remove"
+
+msgid "Итого"
+msgstr "Total"
+
+msgid "Оформить заказ"
+msgstr "Checkout"
+
+msgid "Корзина пуста."
+msgstr "Your cart is empty."
+
+msgid "Понравившиеся товары"
+msgstr "Favorite Products"
+
+msgid "У вас нет понравившихся товаров."
+msgstr "You have no favorite products."
+
+msgid "Цена"
+msgstr "Price"
+
+msgid "Добавить в корзину"
+msgstr "Add to cart"
+
+msgid "Убрать из избранного"
+msgstr "Remove from favorites"
+
+msgid "Добавить в избранное"
+msgstr "Add to favorites"
+
+msgid "Отзывы о товаре"
+msgstr "Product reviews"
+
+msgid "Пока нет отзывов."
+msgstr "No reviews yet."
+
+msgid "Оставить отзыв"
+msgstr "Leave a review"
+
+msgid "Отправить"
+msgstr "Submit"
+
+msgid "Войдите"
+msgstr "Log in"
+
+msgid "Создать аккаунт"
+msgstr "Create an account"
+
+msgid "Зарегистрироваться"
+msgstr "Register"
+
+msgid "Уже есть аккаунт?"
+msgstr "Already have an account?"
+
+msgid "Категории"
+msgstr "Categories"
+
+msgid "Все"
+msgstr "All"
+
+msgid "Товары"
+msgstr "Products"
+
+msgid "Новинки"
+msgstr "New arrivals"
+
+msgid "Скидки"
+msgstr "Discounts"
+
+msgid "Акции"
+msgstr "Special offers"
+
+msgid "Популярные"
+msgstr "Popular"
+
+msgid "Подробнее"
+msgstr "More details"
+
+msgid "Товары по этой категории отсутствуют."
+msgstr "No products in this category."
+
+msgid "Избранное"
+msgstr "Favorites"
+
+msgid "Привет, "
+msgstr "Hello, "
+
+msgid "Информация"
+msgstr "Information"
+
+msgid "Связаться с нами"
+msgstr "Contact us"
+
+msgid "Телефон"
+msgstr "Phone"
+
+msgid "Социальные сети"
+msgstr "Social media"
+
+msgid "О нас"
+msgstr "About us"
+
+msgid "Поддержка"
+msgstr "Support"
+
+#: forms.py
+msgid "Ваш отзыв..."
+msgstr "Your review..."
+
+msgid "Текст отзыва"
+msgstr "Review text"
+
+msgid "Оценка"
+msgstr "Rating"
+
+msgid "Подтвердите пароль"
+msgstr "Confirm password"
+
+msgid "Электронная почта"
+msgstr "Email"
+
+msgid "Пароли не совпадают"
+msgstr "Passwords do not match"
+
+msgid "Фамилия"
+msgstr "Surname"
+
+msgid "Адрес"
+msgstr "Address"
+
+msgid "Способ оплаты"
+msgstr "Payment method"
+
+msgid "Выйти"
+msgstr "Log Out"
+
+msgid "Убрать"
+msgstr "Remove"
+
+msgid "Поиск..."
+msgstr "Search..."
+
+msgid "Контакты"
+msgstr "Contacts"
+
+msgid "Наш магазин"
+msgstr "Our Store"
+
+msgid "Вы можете найти нас по адресу"
+msgstr "You can find us at"
+
+msgid "г. Ташкент, Мирзо Турсунзода 14, ТРЦ Golden Life"
+msgstr "Tashkent, Mirzo Tursunzoda 14, Golden Life Mall"
+
+msgid "ТРЦ Golden Life, Ташкент"
+msgstr "Golden Life Mall, Tashkent"
+
+msgid "🔐 Войти через Google"
+msgstr "🔐 Sign In With Google"
+
+msgid "Подтверждение заказа"
+msgstr "Order Confirmation"
+
+msgid "Введите код, отправленный на вашу почту:"
+msgstr "Enter the code sent to your email:"
+
+msgid "Подтвердить"
+msgstr "Confirm"
+
+msgid "Спасибо за заказ!"
+msgstr "Thank you for your order!"
+
+msgid "Ожидайте отправку. Мы уже собираем вашу посылку."
+msgstr "Expect delivery soon. We are preparing your package."
+
+msgid "На главную"
+msgstr "Back to Home"
+
+msgid "Наша Команда"
+msgstr "Our Team"
+
+msgid "Добро пожаловать в Jewelry Shop — современный интернет-магазин, предлагающий высококачественные ювелирные изделия в минималистичном стиле. Мы считаем, что меньше значит больше, и что каждая деталь имеет значение."
+msgstr "Welcome to Jewelry Shop - a modern online store offering high-quality jewelry in a minimalist style. We believe that less is more and that every detail matters."
+
+msgid "Темный"
+msgstr "Dark"
+
+msgid "Светлый"
+msgstr "Light"
+
+msgid "Цена от"
+msgstr "Min Prize"
+
+msgid "Цена до"
+msgstr "Max Prize"
+
+msgid "Применить"
+msgstr "Apply"
+
+msgid "Мои заказы"
+msgstr "My Orders"
+
+
+msgid "Заказ №"
+msgstr "Order №"
+
+msgid "Вы пока не сделали ни одного заказа."
+msgstr "You did not order anything yet"
+
+msgid "Адрес доставки:"
+msgstr "Adress to Deliver"
+
+msgid "Оплата:"
+msgstr "Payment:"
+
+msgid "шт."
+msgstr "pcs."
+
+msgid "Собирается"
+msgstr "Preparing"
+
+msgid "В пути"
+msgstr "On The Way"
+
+msgid "Доставлен"
+msgstr "Delivered"
+
+msgid "Улица, дом, квартира"
+msgstr "Street, house, apartment"
+
+msgid "Карта"
+msgstr "Card"
+
+msgid "Наличные"
+msgstr "Cash"
+
+msgid "Имя"
+msgstr "Name"
+
+msgid "Фильтр по цене"
+msgstr "Price Filter"
+
+msgid "Привет,"
+msgstr "Hello,"
+
+msgid "Подтвердить заказ"
+msgstr "Verify Order"
+
+msgid "Ожидает потверждения"
+msgstr "Awaiting confirmation" 
+
+msgid "Товары не найдены"
+msgstr "Products not found"

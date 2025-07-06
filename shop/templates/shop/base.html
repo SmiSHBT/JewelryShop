@@ -1,0 +1,373 @@
+{% load i18n %}  
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% trans "Ювелирный магазин" %}{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="{% static 'favicon_circle.ico' %}" type="image/x-icon">
+
+  <style>
+    body.light-theme {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    body.dark-theme {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    body.dark-theme,
+    body.dark-theme .text,
+    body.dark-theme p,
+    body.dark-theme h1,
+    body.dark-theme h2,
+    body.dark-theme h3,
+    body.dark-theme h4,
+    body.dark-theme h5,
+    body.dark-theme h6,
+    body.dark-theme label,
+    body.dark-theme span {
+      color: #f1f1f1;
+    }
+    body.light-theme,
+    body.light-theme .text,
+    body.light-theme p,
+    body.light-theme h1,
+    body.light-theme h2,
+    body.light-theme h3,
+    body.light-theme h4,
+    body.light-theme h5,
+    body.light-theme h6,
+    body.light-theme label,
+    body.light-theme span {
+      color: #000000;
+    }
+    body.dark-theme input,
+    body.dark-theme textarea,
+    body.dark-theme select {
+      background-color: #1e1e1e;
+      color: white;
+      border: 1px solid #444;
+    }
+    body.light-theme input,
+    body.light-theme textarea,
+    body.light-theme select {
+      background-color: white;
+      color: black;
+      border: 1px solid #ccc;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: inherit;
+      opacity: 0.6;
+    }
+    body.light-theme input::placeholder {
+      color: #000000b3;
+    }
+    body.dark-theme input::placeholder {
+      color: #ffffffb3;
+    }
+    .card.light-theme {
+      background-color: #ffffff;
+    }
+    .card.dark-theme {
+      background-color: #1f1f1f;
+    }
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    .navbar.light-theme {
+      background-color: #f1f1f1 !important;
+    }
+    .navbar.dark-theme {
+      background-color: #1f1f1f !important;
+    }
+    footer.light-theme {
+      background-color: #e9e9e9;
+    }
+    footer.dark-theme {
+      background-color: #1f1f1f;
+    }
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: inherit;
+      cursor: pointer;
+    }
+    body.dark-theme .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    body.light-theme .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='black' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    body.light-theme .order-card {
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #ddd;
+    }
+    body.dark-theme .order-card {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border: 1px solid #333;
+    }
+    body.dark-theme .order-card .card-header {
+      border-bottom: 1px solid #444;
+    }
+    body.light-theme .order-card .card-header {
+      border-bottom: 1px solid #ccc;
+    }
+    body.dark-theme .order-card li {
+      color: #e0e0e0;
+    }
+    body.light-theme .order-card li {
+      color: #333;
+    }
+    body.light-theme .login-card {
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #ccc;
+    }
+    body.dark-theme .login-card {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border: 1px solid #444;
+    }
+    body.light-theme .login-card input {
+      background-color: #ffffff;
+      color: #000;
+      border: 1px solid #ccc;
+    }
+    body.dark-theme .login-card input {
+      background-color: #2a2a2a;
+      color: #fff;
+      border: 1px solid #555;
+    }
+    body.dark-theme .login-card input::placeholder {
+      color: #bbb;
+    }
+    body.light-theme .login-card input::placeholder {
+      color: #888;
+    }
+    body.dark-theme .login-card .btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+    }
+    body.light-theme .login-card .btn-danger {
+        background-color: crimson;
+    }
+    body.dark-theme .login-card .btn-danger {
+      background-color: crimson;
+    }
+    body.light-theme .register-card {
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #ccc;
+    }
+    body.dark-theme .register-card {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border: 1px solid #444;
+    }
+    body.light-theme .register-card input {
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #ccc;
+    }
+    body.dark-theme .register-card input {
+      background-color: #2a2a2a;
+      color: #ffffff;
+      border: 1px solid #555;
+    }
+    body.dark-theme .register-card input::placeholder {
+      color: #bbb;
+    }
+    body.light-theme .register-card input::placeholder {
+      color: #888;
+    }
+    body.dark-theme .register-card .btn-success,
+    body.light-theme .register-card .btn-success {
+      background-color: #198754;
+      border: none;
+      color: white;
+    }
+    body.light-theme .checkout-card {
+      background-color: #ffffff;
+      color: #000000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    body.dark-theme .checkout-card {
+      background-color: #1b1b1b;
+      color: #ffffff;
+      border: 1px solid #333;
+      box-shadow: none;
+    }
+    body.light-theme .checkout-card input,
+    body.light-theme .checkout-card select {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+    }
+    body.dark-theme .checkout-card input,
+    body.dark-theme .checkout-card select {
+      background-color: #2a2a2a;
+      color: #fff;
+      border: 1px solid #555;
+    }
+    body.dark-theme .checkout-card input::placeholder,
+    body.dark-theme .checkout-card select::placeholder {
+      color: #aaa;
+    }
+    body.light-theme .checkout-card h2,
+    body.light-theme .checkout-card label {
+      color: #000;
+    }
+    body.dark-theme .checkout-card h2,
+    body.dark-theme .checkout-card label {
+      color: #fff;
+    }
+    .checkout-card button {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      font-size: 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .checkout-card button:hover {
+      background-color: #218838;
+    }
+    body.dark-theme a {
+      color: white;
+      text-decoration: none;
+    }
+    body.light-theme a {
+      color: black;
+      text-decoration: none;
+    }
+    body.dark-theme a:hover,
+    body.light-theme a:hover {
+      text-decoration: underline;
+    }
+    body.dark-theme small {
+      color: #bbbbbb;
+    }
+    body.light-theme small {
+      color: #555555;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg shadow">
+    <div class="container-fluid px-3">
+      <div class="d-flex align-items-center gap-2">
+        <a class="navbar-brand mb-0" href="{% url 'home' %}"><strong>Jewelry Shop</strong></a>
+        {% if user.is_authenticated %}
+          <span class="d-lg-none theme-user" style="margin-left: 150px;">{% trans "Привет," %} <strong>{{ user.first_name|default:user.username }}</strong></span>
+        {% endif %}
+      </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+          <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <select name="language" onchange="this.form.submit()" class="form-select form-select-sm">
+              <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>Русский</option>
+              <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
+            </select>
+          </form>
+
+          <form class="d-flex" method="get" action="{% url 'home' %}">
+            <input class="form-control form-control-sm" type="search" name="q" placeholder="{% trans 'Поиск...' %}" value="{{ request.GET.q }}">
+          </form>
+        </div>
+
+        <ul class="navbar-nav gap-2 align-items-center mb-0">
+          {% if user.is_authenticated %}
+            <li class="nav-item d-none d-lg-block theme-user">{% trans "Привет," %} <strong>{{ user.first_name|default:user.username }}</strong></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">{% trans "Наш магазин" %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'favorites' %}">{% trans "Избранное" %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'cart' %}">{% trans "Корзина" %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'my_orders' %}">{% trans "Мои заказы" %}</a></li>
+            <li class="nav-item"><a class="nav-link text-danger" href="{% url 'logout' %}">{% trans "Выйти" %}</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">{% trans "Войти" %}</a></li>
+          {% endif %}
+          <li class="nav-item">
+            <button id="themeToggle" class="theme-toggle">
+              <i id="themeIcon" class="bi bi-moon-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+    {% block content %}{% endblock %}
+  </div>
+
+  <footer class="py-4 mt-5 text-center" style="border-radius: 10px;">
+    <div class="container">
+      <hr>
+      <div class="d-flex flex-column align-items-center gap-3">
+        <div>
+          <h5>{% trans "Связаться с нами" %}</h5>
+          <p>Gmail: goldenbujishop@gmail.com</p>
+          <p>{% trans "Телефон" %}: +998 88 767 09 99</p>
+        </div>
+        <div>
+          <h5>{% trans "Информация" %}</h5>
+          <a href="{% url 'contact' %}">{% trans "Наш магазин" %}</a><br>
+          <a href="{% url 'about' %}">{% trans "О нас" %}</a><br>
+          <a href="https://t.me/TheDurovFan">{% trans "Поддержка" %}</a>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const body = document.body;
+    const nav = document.querySelector('.navbar');
+    const footer = document.querySelector('footer');
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme') || (userPrefersDark ? 'dark' : 'light');
+    setTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const newTheme = body.classList.contains('light-theme') ? 'dark' : 'light';
+      setTheme(newTheme);
+    });
+
+    function setTheme(theme) {
+      body.classList.remove('light-theme', 'dark-theme');
+      nav.classList.remove('light-theme', 'dark-theme');
+      footer.classList.remove('light-theme', 'dark-theme');
+      body.classList.add(`${theme}-theme`);
+      nav.classList.add(`${theme}-theme`);
+      footer.classList.add(`${theme}-theme`);
+      const themeIcon = document.getElementById('themeIcon');
+      if (themeIcon) {
+        themeIcon.className = theme === 'light' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+      }
+      localStorage.setItem('theme', theme);
+    }
+  </script>
+</body>
+</html>

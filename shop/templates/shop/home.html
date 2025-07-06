@@ -1,0 +1,156 @@
+{% extends 'shop/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<style>
+    .category-button {
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    body.light-theme .category-button {
+        background-color: #e3e3e3;
+        color: black;
+    }
+    body.light-theme .category-button:hover {
+        background-color: #d1d1d1;
+    }
+
+    body.dark-theme .category-button {
+        background-color: #333;
+        color: white;
+    }
+    body.dark-theme .category-button:hover {
+        background-color: #444;
+    }
+
+    .product-card {
+        width: 220px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        background-color: #dad9d9;
+        transition: 0.3s;
+    }
+
+    body.dark-theme .product-card {
+        background-color: #2b2b2b;
+        border-color: #444;
+        color: white;
+    }
+
+    .product-card:hover {
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+        max-width: 100%;
+        max-height: 180px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+
+    .product-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .no-products {
+        font-size: 18px;
+        color: gray;
+        margin-top: 40px;
+    }
+
+    body.light-theme .form-control {
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
+    }
+
+    body.dark-theme .form-control {
+        background-color: #1f1f1f;
+        color: #fff;
+        border: 1px solid #444;
+    }
+
+    body.light-theme .btn-primary {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    body.dark-theme .btn-primary {
+        background-color: #375a7f;
+        color: white;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        opacity: 0.9;
+    }
+    .text-danger {
+        color: #dc3545 !important;
+    }
+
+</style>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <h4>{% trans "Категории" %}</h4>
+        <div class="d-flex flex-column gap-2 mb-4">
+            <a href="/"><button class="category-button w-100">{% trans "Все" %}</button></a>
+            {% for category in categories %}
+                <a href="/?category={{ category.id }}">
+                    <button class="category-button w-100">{{ category.name }}</button>
+                </a>
+            {% endfor %}
+        </div>
+
+        <h5>{% trans "Фильтр по цене" %}</h5>
+        <form method="get" action="{% url 'home' %}">
+            {% if request.GET.category %}
+                <input type="hidden" name="category" value="{{ request.GET.category }}">
+            {% endif %}
+            {% if request.GET.q %}
+                <input type="hidden" name="q" value="{{ request.GET.q }}">
+            {% endif %}
+            <div class="mb-2">
+                <label class="form-label">{% trans "Цена от" %}</label>
+                <input type="number" name="price_min" class="form-control" value="{{ request.GET.price_min }}">
+            </div>
+            <div class="mb-2">
+                <label class="form-label">{% trans "Цена до" %}</label>
+                <input type="number" name="price_max" class="form-control" value="{{ request.GET.price_max }}">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">{% trans "Применить" %}</button>
+        </form>
+    </div>
+
+    <div class="col-md-9">
+        <h2>{% trans "Товары" %}</h2>
+
+        {% if products %}
+            <div class="product-grid">
+                {% for product in products %}
+                    <div class="product-card">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <h3>
+                            {{ product.name }}
+                          </h3>
+                        <p><strong>{{ product.price }} UZS</strong></p>
+                        <a href="{% url 'product_detail' product.id %}">{% trans "Подробнее" %}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-products"><strong>{% trans "Товары не найдены" %}</strong></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'shop/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<style>
+    .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .cart-item img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+    .btn-remove {
+        background-color: crimson;
+        color: white;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<h2>{% trans "Корзина" %}</h2>
+
+{% if cart_items %}
+    {% for item in cart_items %}
+        <div class="cart-item">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            <div>
+                <p><strong>{{ item.product.name }}</strong></p>
+                <p>{{ item.quantity }} x {{ item.product.price }} UZS</p>
+            </div>
+            <form method="post" action="{% url 'remove_from_cart' item.product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-remove">{% trans "Удалить" %}</button>
+            </form>
+        </div>
+    {% endfor %}
+
+    <hr>
+    <h4>{% trans "Итого" %}: {{ total }} UZS</h4>
+
+    <form method="get" action="{% url 'checkout' %}">
+        <button type="submit" class="btn btn-success">{% trans "Оформить заказ" %}</button>
+    </form>
+
+{% else %}
+    <p>{% trans "Корзина пуста." %}</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends 'shop/base.html' %}
+{% load i18n %}
+{% block content %}
+
+<style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #ffffff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #000;
+    }
+
+    .section {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    .section p {
+      font-size: 18px;
+      color: #444;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .team {
+      margin-top: 80px;
+    }
+
+    .team h3 {
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #222;
+    }
+
+    .team-members {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .member {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 20px;
+      width: 240px;
+      border-radius: 10px;
+      text-align: center;
+      transition: box-shadow 0.3s;
+    }
+
+    .member:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .member img {
+      border-radius: 50%;
+      width: 80px;
+      margin-bottom: 15px;
+    }
+
+    .member h4 {
+      font-size: 18px;
+      color: #111;
+      margin-bottom: 5px;
+    }
+
+    .member p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    footer {
+      background-color: #f2f2f2;
+      color: #555;
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      margin-top: 80px;
+    }
+
+    @media (max-width: 768px) {
+      .team-members {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    body.light-theme .theme-text {
+      color: #000;
+    }
+
+    body.dark-theme .theme-text {
+      color: #fff;
+    }
+    body.light-theme .theme-text2 {
+      color: #000;
+    }
+
+    body.dark-theme .theme-text2 {
+      color: #fff;
+    }
+
+  </style>
+
+
+  <section class="section">
+  <h2 class="theme-text">{% trans "О нас" %}</h2>
+    <p class="theme-text">
+      {% trans "Добро пожаловать в Jewelry Shop — современный интернет-магазин, предлагающий высококачественные ювелирные изделия в минималистичном стиле. Мы считаем, что меньше значит больше, и что каждая деталь имеет значение."%}
+    </p>
+  </section>
+{% endblock %}
