@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _ 
 from .models import Category, Product, Favorite, CartItem, OrderItem, Order, Review
 from .forms import RegisterForm, LoginForm, OrderForm, ReviewForm
 import random
@@ -13,7 +14,6 @@ import requests
 def my_orders(request):
     orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'shop/my_orders.html', {'orders': orders})
-
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -187,11 +187,14 @@ def register_view(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
+
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, user)
+
             return redirect('home')
     else:
         form = RegisterForm()
-    return render(request, 'shop/register.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
@@ -206,7 +209,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('home')
             else:
-                pass
+                form.add_error(None, _('Неправильное имя пользователя или пароль'))
     else:
         form = LoginForm()
     return render(request, 'registration/login.html', {'form': form})
