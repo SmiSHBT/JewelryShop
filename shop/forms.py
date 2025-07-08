@@ -33,7 +33,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', ]
+        fields = ['username', 'email' ]
         labels = {
             'username': _('Имя пользователя'),
             'email': _('Электронная почта'),
